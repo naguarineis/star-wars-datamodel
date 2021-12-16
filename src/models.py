@@ -22,18 +22,24 @@ class Profile(Base):
     __tablename__ = 'profile'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
+    
 
     user = relationship("User", back_populates="child")
 
-class Favorites(Base):
+class Favorite(Base):
     __tablename__ = 'favorites'
     id = Column(Integer, primary_key=True)
     name_favorite = Column(String(250), nullable=False)
 
     user_id = Column(Integer, ForeignKey('user.id'))
+    __table_args__ = (UniqueConstraint(
+        "user_id",
+        "name_favorite",
+        name = "unique_favorite_item_for_user"
+    ),)
     user = relationship("User")
 
-class Planets(Base):
+class Planet(Base):
     __tablename__ = 'planets'
     id = Column(Integer, primary_key=True)
     terrain = Column(String(250), nullable=False)
@@ -47,7 +53,7 @@ class Planets(Base):
     favorites_id= Column(Integer, ForeignKey("favorites.id"))
     characters_id= Column(Integer, ForeignKey("characters.id"))
 
-class Characters(Base):
+class Character(Base):
     __tablename__ = 'characters'
     id = Column(Integer, primary_key=True)
     hair_color = Column(String(250))
