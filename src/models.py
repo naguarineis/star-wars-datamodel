@@ -59,7 +59,7 @@ class Characters(Base):
     eye_color = Column(String(250))
 
     favorites_id= Column(Integer, ForeignKey("favorites.id"))
-    planets_id= Column(Integer, ForeignKey("planets.id"))
+    # planets_id= Column(Integer, ForeignKey("planets.id"))
 
     def to_dict(self):
         return {}
